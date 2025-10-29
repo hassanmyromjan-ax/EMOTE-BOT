@@ -3,6 +3,7 @@ psutil
 PyJWT
 aiohttp
 protobuf
+protobuf_decoder
 cfonts
 pycryptodome
 pytz
