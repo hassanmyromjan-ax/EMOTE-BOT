@@ -1,3 +1,6 @@
+import asyncio
+import random
+from aiohttp import web
 import requests , os , psutil , sys , jwt , pickle , json , binascii , time , urllib3 , base64 , datetime , re , socket , threading , ssl , pytz , aiohttp
 from protobuf_decoder.protobuf_decoder import Parser
 from xC4 import * ; from xHeaders import *
@@ -8,15 +11,22 @@ from threading import Thread
 from Pb2 import DEcwHisPErMsG_pb2 , MajoRLoGinrEs_pb2 , PorTs_pb2 , MajoRLoGinrEq_pb2 , sQ_pb2 , Team_msg_pb2
 from cfonts import render, say
 
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-#EMOTES BY PARAHEX X CODEX
+# ---------------- HTTP SERVER FOR RENDER ----------------
+async def handle(request):
+    return web.Response(text="Bot Running ✅")
 
+async def start_http_server():
+    app = web.Application()
+    app.router.add_get('/', handle)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, '0.0.0.0', 10000)
+    await site.start()
+    print("HTTP server started on port 10000")
 
-
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)  
-
-# VariabLes dyli 
-#------------------------------------------#
+# ------------------- BOT VARIABLES -------------------
 online_writer = None
 whisper_writer = None
 spam_room = False
@@ -25,7 +35,6 @@ spam_chat_id = None
 spam_uid = None
 Spy = False
 Chat_Leave = False
-#------------------------------------------#
 
 Hr = {
     'User-Agent': "Dalvik/2.1.0 (Linux; U; Android 11; ASUS_Z01QD Build/PI)",
@@ -37,7 +46,7 @@ Hr = {
     'X-GA': "v1 1",
     'ReleaseVersion': "OB51"}
 
-# ---- Random Colores ----
+# ------------------- RANDOM COLORS -------------------
 def get_random_color():
     colors = [
         "[FF0000]", "[00FF00]", "[0000FF]", "[FFFF00]", "[FF00FF]", "[00FFFF]", "[FFFFFF]", "[FFA500]",
@@ -244,9 +253,13 @@ async def TcPOnLine(ip, port, key, iv, AutHToKen, reconnect_delay=0.5):
                         await SEndPacKeT(whisper_writer , online_writer , 'ChaT' , JoinCHaT)
 
 
-                        message = f'[B][C]{get_random_color()}\n- WeLComE To Emote Bot ! '
+                        message = f"[B][C]{get_random_color()}\n" \
+                                   f" Welcome to Emote Bot!\n\n" \
+                                   f" Bot Owner: Mr Rafi\n" \
+                                   f" Version: OB51\n" \
+                                   f" Join Telegram: @cyberarchbd"
                         P = await SEndMsG(0 , message , OwNer_UiD , OwNer_UiD , key , iv)
-                        await SEndPacKeT(whisper_writer , online_writer , 'ChaT' , P)
+                            await SEndPacKeT(whisper_writer , online_writer , 'ChaT' , P)
 
                     except:
                         if data2.hex().startswith('0500') and len(data2.hex()) > 1000:
@@ -261,7 +274,13 @@ async def TcPOnLine(ip, port, key, iv, AutHToKen, reconnect_delay=0.5):
                                 await SEndPacKeT(whisper_writer , online_writer , 'ChaT' , JoinCHaT)
 
 
-                                message = f'[B][C]{get_random_color()}\n- WeLComE To Emote Bot ! \n\n{get_random_color()}- Commands : @a {xMsGFixinG('player_uid')} {xMsGFixinG('909000001')}\n\n[00FF00]Dev : @{xMsGFixinG('Spideerio')}'
+                                message = f'[B][C]{get_random_color()}\n' \
+          f' Welcome to Emote Bot!\n\n' \
+          f' Bot Owner: Mr Rafi\n' \
+          f' Version: OB51\n' \
+          f' Join Telegram: @cyberarchbd\n\n' \
+          f'{get_random_color()}- Commands : @a {xMsGFixinG("player_uid")} {xMsGFixinG("909000001")}\n\n' \
+          f'[00FF00]Dev : @{xMsGFixinG("Spideerio")}'
                                 P = await SEndMsG(0 , message , OwNer_UiD , OwNer_UiD , key , iv)
                                 await SEndPacKeT(whisper_writer , online_writer , 'ChaT' , P)
                             except:
@@ -434,7 +453,7 @@ async def TcPChaT(ip, port, AutHToKen, key, iv, LoGinDaTaUncRypTinG, ready_event
         await asyncio.sleep(reconnect_delay)
 
 async def MaiiiinE():
-    Uid , Pw = '4243859463','BY_MR-XKRVZSI2Y-RAFI'
+    Uid , Pw = '4243860669','BY_MR-T8NMIWAFF-RAFI'
     
 
     open_id , access_token = await GeNeRaTeAccEss(Uid , Pw)
