@@ -602,7 +602,7 @@ async def MaiiiinE():
 
     ToKen = MajoRLoGinauTh.token
     TarGeT = MajoRLoGinauTh.account_uid
-    global key, iv, region
+    global key, iv
     key = MajoRLoGinauTh.key
     iv = MajoRLoGinauTh.iv
     region = MajoRLoGinauTh.region
