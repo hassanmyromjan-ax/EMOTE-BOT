@@ -586,25 +586,29 @@ async def process_api_queue():
 # ---- end worker ----
 
 async def MaiiiinE():
-    global key, iv, region
+    global key, iv, region  # <-- অবশ্যই ফাংশনের শুরুতে লিখো
+
     Uid , Pw = '4207496577','606840821F88420DC9AA5697481988C34714DB1495534DA63715821EF504CAAE'
     
-
     open_id , access_token = await GeNeRaTeAccEss(Uid , Pw)
-    if not open_id or not access_token: print("ErroR - InvaLid AccounT") ; return None
+    if not open_id or not access_token: 
+        print("ErroR - InvaLid AccounT")
+        return None
     
     PyL = await EncRypTMajoRLoGin(open_id , access_token)
     MajoRLoGinResPonsE = await MajorLogin(PyL)
-    if not MajoRLoGinResPonsE: print("TarGeT AccounT => BannEd / NoT ReGisTeReD ! ") ; return None
+    if not MajoRLoGinResPonsE: 
+        print("TarGeT AccounT => BannEd / NoT ReGisTeReD ! ") 
+        return None
     
     MajoRLoGinauTh = await DecRypTMajoRLoGin(MajoRLoGinResPonsE)
     UrL = MajoRLoGinauTh.url
     print(UrL)
-    region = MajoRLoGinauTh.region
 
     ToKen = MajoRLoGinauTh.token
     TarGeT = MajoRLoGinauTh.account_uid
-    global key, iv, region
+
+    # এখন assignment
     key = MajoRLoGinauTh.key
     iv = MajoRLoGinauTh.iv
     region = MajoRLoGinauTh.region
